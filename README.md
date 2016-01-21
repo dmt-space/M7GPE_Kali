@@ -6,10 +6,9 @@ It's a completely stock kernel but it has already had the 802.11 patch applied a
 
 In the AnyKernel2 devices.cfg, the onem7 is added as following:
 
-#HTCOneM7GPE
-[onem7]
-devicenames = m7
-block = /dev/block/platform/msm_sdcc.1/by-name/boot
-aroma = True
+    [onem7]
+    devicenames = m7
+    block = /dev/block/platform/msm_sdcc.1/by-name/boot
+    aroma = True
 
 
