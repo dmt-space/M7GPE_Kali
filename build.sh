@@ -13,6 +13,8 @@ INST_AROMA="True"
 KALI_DEVNAME="onem7gpe"
 BUILD_CORES="4"
 
+export HOSTNAME=kali
+
 echo "[CONFIGURE] Installing dependencies..."
 sudo apt-get update
 sudo apt-get install build-essential git wget curl -y
