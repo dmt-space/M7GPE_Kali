@@ -53,7 +53,7 @@ if [[ $(cat kali-nethunter/nethunter-installer/devices.cfg | grep "$KALI_DEVNAME
 	echo "[CONFIGURE] Adding $KALI_DEVNAME to devices.cfg..."
 	echo "">> kali-nethunter/nethunter-installer/devices.cfg
 	echo "#"$DEV_DESC>> kali-nethunter/nethunter-installer/devices.cfg
-	echo "["$DEV_BOARD"]">> kali-nethunter/nethunter-installer/devices.cfg
+	echo "["$KALI_DEVNAME"]">> kali-nethunter/nethunter-installer/devices.cfg
 	echo "author = \"$KERN_AUTHOR\"">> kali-nethunter/nethunter-installer/devices.cfg
 	echo "version = \"$KERN_BUILDVER\"">> kali-nethunter/nethunter-installer/devices.cfg
 	echo "kernelstring = \"$KERN_STRING\"">> kali-nethunter/nethunter-installer/devices.cfg
