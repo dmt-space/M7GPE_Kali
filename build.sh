@@ -4,6 +4,7 @@ DEV_BOARD="m7"
 DEV_DESC="HTC One M7 GPE"
 DEV_ARCH="armhf"
 DEV_BLOCK="/dev/block/platform/msm_sdcc.1/by-name/boot"
+KERN_CONFIG="m7gpekali_defconfig"
 KERN_BUILDVER="1.2"
 KERN_STRING="Kali M7 GPE"
 KERN_AUTHOR="Lavanoid"
@@ -30,10 +31,13 @@ export PATH=$PATH:`pwd`/toolchain/bin
 
 echo "[CONFIGURE] Downloading Kali Nethunter"
 git clone https://github.com/offensive-security/kali-nethunter
+cd kali-nethunter
+git pull origin master
+cd ..
 
-if [[ -f "m7gpekali_defconfig" ]]; then
+if [[ -f "$KERN_CONFIG" ]]; then
 	echo "[CONFIGURE] Copying Kali default configuration..."
-	cp -f "m7gpekali_defconfig" "kernel/arch/arm/configs/m7gpekali_defconfig"
+	cp -f "$KERN_CONFIG" "kernel/arch/arm/configs/$KERN_CONFIG"
 fi
 
 cd kernel
@@ -45,7 +49,7 @@ fi
 
 echo "[BUILD] Building kernel for $DEV_DESC $KERN_ANDROIDVNO"
 make clean
-make m7gpekali_defconfig
+make $KERN_CONFIG
 make -j$BUILD_CORES
 
 cd ..
