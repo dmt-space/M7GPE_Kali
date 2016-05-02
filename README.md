@@ -7,11 +7,8 @@ This kernel does have the HID Keyboard Gadget patch applied but it does not work
 
 #Compiling.
 
-This cannot be compiled on Windows. I recommend using Ubuntu 15 64BIT
+This cannot be compiled on Windows. I recommend using Ubuntu 15 64BIT. The script will automatically download the required dependencies, assuming that you are using a Debian-Based Linux Disto (such as Ubuntu). The script can be adapted to work with other devices. I DO NOT provide any means of technical support and neither do I take responsibility for whatever the outcome that may occur when you fiddle around with this and your device.
 
     bash ./build.sh
 
 By default the script uses 4 cores for compiling the source code but you can edit it to use more or less. Edit the line with `make -j4`
-
-
-
