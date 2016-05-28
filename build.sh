@@ -14,7 +14,14 @@ INST_AROMA="True"
 KALI_DEVNAME="onem7gpe"
 BUILD_CORES="4"
 
-export HOSTNAME=kali
+#This will appear in the kernel string, such as "root@kali".
+HOST="kali"
+
+echo "[CONFIGURE] Changing system host name to '"$HOST"'..."
+# Backup the original hostname, then change it to the value of "HOST".
+ORIGINALHOSTNAME=$(hostname)
+export HOSTNAME=$HOST
+sudo hostname "$HOST"
 
 echo "[CONFIGURE] Installing dependencies..."
 sudo apt-get update
@@ -78,5 +85,9 @@ echo "[BUILD] Building Kali Nethunter package..."
 cd "kali-nethunter/nethunter-installer/"
 python build.py -d $KALI_DEVNAME --$KERN_ANDROIDVER
 
+echo "[CONFIGURE] Restoring system host name to '"$ORIGINALHOSTNAME"'..."
+export HOSTNAME=$ORIGINALHOSTNAME
+sudo hostname "$ORIGINALHOSTNAME"
+echo "OK"
 echo "[DONE] Compilation complete."
 
