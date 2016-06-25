@@ -94,6 +94,8 @@ echo "[BUILD] Building Kali Nethunter package..."
 cd "kali-nethunter/nethunter-installer/"
 python build.py -d $KALI_DEVNAME --$KERN_ANDROIDVER
 
+echo "Original hostname: $ORIGINALHOSTNAME"
+
 echo "[CONFIGURE] Restoring system host name to '"$ORIGINALHOSTNAME"'..."
 export HOSTNAME=$ORIGINALHOSTNAME
 sudo hostname "$ORIGINALHOSTNAME"
