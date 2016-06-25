@@ -25,9 +25,12 @@ HOST="kali"
 
 echo "[CONFIGURE] Changing system host name to '"$HOST"'..."
 # Backup the original hostname, then change it to the value of "HOST".
-ORIGINALHOSTNAME=$(hostname)
+ORIGINALHOSTNAME=`hostname`
+echo "Original hostname: $ORIGINALHOSTNAME"
 export HOSTNAME=$HOST
 sudo hostname "$HOST"
+echo "Current hostname: "`hostname`
+
 
 echo "[CONFIGURE] Installing dependencies..."
 sudo apt-get update
