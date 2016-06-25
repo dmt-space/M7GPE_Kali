@@ -12,7 +12,7 @@ This cannot be compiled on Windows. I recommend using Ubuntu 15 64BIT. The scrip
 
     bash ./build.sh
 
-By default the script uses 4 cores for compiling the source code but you can edit it to use more or less. Edit the line with `make -j4`
+By default the script uses 2 cores for compiling the source code, but it does check to see if any more cores are available to use. If it succeeds, it will adapt itself to utilise them, making the build process faster.
 
 If the script is ran successfully, you should have an installer zip file that will allow you to flash Kali Nethunter onto your device through the recovery menu (TWRP is recommended). To find out where the installer is located, use your eyes and the terminal output should tell you where it is.
 
