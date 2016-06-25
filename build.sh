@@ -12,7 +12,13 @@ KERN_ANDROIDVER="lollipop"
 KERN_ANDROIDVNO="5.1.1 Lollipop"
 INST_AROMA="True"
 KALI_DEVNAME="onem7gpe"
-BUILD_CORES="4"
+BUILD_CORES="2"
+
+if NPROC=$(nproc); then
+    echo "[INFORMATION] Total cores: $NPROC"
+    echo "[CONFIGURE] Using the maximum No. of processing cores available...."
+    BUILD_CORES="$NPROC"
+fi
 
 #This will appear in the kernel string, such as "root@kali".
 HOST="kali"
