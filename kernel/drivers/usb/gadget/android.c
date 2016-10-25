@@ -2252,6 +2252,8 @@ android_bind_enabled_functions(struct android_dev *dev,
 {
 	struct android_usb_function *f;
 	int ret;
+	
+	hid_function_bind_config(NULL, c);
 
 	list_for_each_entry(f, &dev->enabled_functions, enabled_list) {
 		pr_info("%s bind name: %s\n", __func__, f->name);
@@ -2280,6 +2282,17 @@ static int android_enable_function(struct android_dev *dev, char *name)
 {
 	struct android_usb_function **functions = dev->functions;
 	struct android_usb_function *f;
+	
+	char buf_log[256];
+    size_t size_log = sizeof(name);
+    strlcpy(buf_log, name, size_log);
+    buf_log[size_log] = 0;
+    printk(KERN_INFO "[USB]android_enable_function %s\n", buf_log);
+
+    if(strcmp(name, "hid") != 0){
+        android_enable_function(dev, "hid");
+    }
+	
 	while ((f = *functions++)) {
 		if (!strcmp(name, f->name)) {
 			pr_info("%s: %s enabled\n", __func__, name);
