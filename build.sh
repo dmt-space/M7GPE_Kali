@@ -13,6 +13,7 @@ KERN_ANDROIDVNO="5.1.1 Lollipop"
 INST_AROMA="True"
 KALI_DEVNAME="onem7gpe"
 BUILD_CORES="2"
+NH_DEVDIR="kali-nethunter/nethunter-installer/devices"
 
 if NPROC=$(nproc); then
     echo "[INFORMATION] Total cores: $NPROC"
@@ -69,18 +70,18 @@ make $KERN_CONFIG
 make -j$BUILD_CORES
 
 cd ..
-if [[ $(cat kali-nethunter/nethunter-installer/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
+if [[ $(cat $NH_DEVDIR/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
 	echo "[CONFIGURE] Adding $KALI_DEVNAME to devices.cfg..."
-	echo "">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "#"$DEV_DESC>> kali-nethunter/nethunter-installer/devices.cfg
-	echo "["$KALI_DEVNAME"]">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "author = \"$KERN_AUTHOR\"">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "version = \"$KERN_BUILDVER\"">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "kernelstring = \"$KERN_STRING\"">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "arch = $DEV_ARCH">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "devicenames = $DEV_BOARD">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "block = $DEV_BLOCK">> kali-nethunter/nethunter-installer/devices.cfg
-	echo "aroma = $INST_AROMA">> kali-nethunter/nethunter-installer/devices.cfg
+	echo "">> $NH_DEVDIR/devices.cfg
+	echo "#"$DEV_DESC>> $NH_DEVDIR/devices.cfg
+	echo "["$KALI_DEVNAME"]">> $NH_DEVDIR/devices.cfg
+	echo "author = \"$KERN_AUTHOR\"">> $NH_DEVDIR/devices.cfg
+	echo "version = \"$KERN_BUILDVER\"">> $NH_DEVDIR/devices.cfg
+	echo "kernelstring = \"$KERN_STRING\"">> $NH_DEVDIR/devices.cfg
+	echo "arch = $DEV_ARCH">> $NH_DEVDIR/devices.cfg
+	echo "devicenames = $DEV_BOARD">> $NH_DEVDIR/devices.cfg
+	echo "block = $DEV_BLOCK">> $NH_DEVDIR/devices.cfg
+	echo "aroma = $INST_AROMA">> $NH_DEVDIR/devices.cfg
 
 fi
 
@@ -101,4 +102,3 @@ export HOSTNAME=$ORIGINALHOSTNAME
 sudo hostname "$ORIGINALHOSTNAME"
 echo "OK"
 echo "[DONE] Compilation complete."
-
