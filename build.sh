@@ -52,24 +52,26 @@ cd kali-nethunter
 git pull origin master
 cd ..
 
-if [[ -f "$KERN_CONFIG" ]]; then
-	echo "[CONFIGURE] Copying Kali default configuration..."
-	cp -f "$KERN_CONFIG" "kernel/arch/arm/configs/$KERN_CONFIG"
+if [[ $1 != "--nokern" ]]; then
+    if [[ -f "$KERN_CONFIG" ]]; then
+        echo "[CONFIGURE] Copying Kali default configuration..."
+        cp -f "$KERN_CONFIG" "kernel/arch/arm/configs/$KERN_CONFIG"
+    fi
+
+    cd kernel
+    if [[ ! -f "mac80211.compat08082009.wl_frag+ack_v1.patch" ]]; then
+        echo "[PATCH] Patching 802.11..."
+        wget http://patches.aircrack-ng.org/mac80211.compat08082009.wl_frag+ack_v1.patch
+        patch -p1 < mac80211.compat08082009.wl_frag+ack_v1.patch
+    fi
+
+    echo "[BUILD] Building kernel for $DEV_DESC $KERN_ANDROIDVNO"
+    make clean
+    make $KERN_CONFIG
+    make -j$BUILD_CORES
+
+    cd ..
 fi
-
-cd kernel
-if [[ ! -f "mac80211.compat08082009.wl_frag+ack_v1.patch" ]]; then
-	echo "[PATCH] Patching 802.11..."
-	wget http://patches.aircrack-ng.org/mac80211.compat08082009.wl_frag+ack_v1.patch
-	patch -p1 < mac80211.compat08082009.wl_frag+ack_v1.patch
-fi
-
-echo "[BUILD] Building kernel for $DEV_DESC $KERN_ANDROIDVNO"
-make clean
-make $KERN_CONFIG
-make -j$BUILD_CORES
-
-cd ..
 
 echo "CD: "$(pwd)
 echo "Creating directory $NH_DEVDIR"
@@ -92,7 +94,7 @@ fi
 
 if [[ -f "kernel/arch/arm/boot/zImage" ]]; then
 	echo "[CONFIGURE] Copying created kernel to Kali Installer kernels directory..."
-	mkdir "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME"
+	mkdir -p "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME"
 	cp -f "kernel/arch/arm/boot/zImage" "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME/zImage"
 fi
 
