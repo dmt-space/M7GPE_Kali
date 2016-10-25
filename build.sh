@@ -59,11 +59,11 @@ if [[ $1 != "--nokern" ]]; then
     fi
 
     cd kernel
-    if [[ ! -f "mac80211.compat08082009.wl_frag+ack_v1.patch" ]]; then
-        echo "[PATCH] Patching 802.11..."
-        wget http://patches.aircrack-ng.org/mac80211.compat08082009.wl_frag+ack_v1.patch
-        patch -p1 < mac80211.compat08082009.wl_frag+ack_v1.patch
-    fi
+    #if [[ ! -f "mac80211.compat08082009.wl_frag+ack_v1.patch" ]]; then
+    #    echo "[PATCH] Patching 802.11..."
+    #    wget http://patches.aircrack-ng.org/mac80211.compat08082009.wl_frag+ack_v1.patch
+    #    patch -p1 < mac80211.compat08082009.wl_frag+ack_v1.patch
+    #fi
 
     echo "[BUILD] Building kernel for $DEV_DESC $KERN_ANDROIDVNO"
     make clean
