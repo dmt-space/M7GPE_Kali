@@ -70,6 +70,9 @@ make $KERN_CONFIG
 make -j$BUILD_CORES
 
 cd ..
+
+mkdir -p $NH_DEVDIR
+
 if [[ $(cat $NH_DEVDIR/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
 	echo "[CONFIGURE] Adding $KALI_DEVNAME to devices.cfg..."
 	echo "">> $NH_DEVDIR/devices.cfg
