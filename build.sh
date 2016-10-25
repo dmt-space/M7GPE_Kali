@@ -71,6 +71,8 @@ make -j$BUILD_CORES
 
 cd ..
 
+echo "CD: "$(pwd)
+echo "Creating directory $NH_DEVDIR"
 mkdir -p $NH_DEVDIR
 
 if [[ $(cat $NH_DEVDIR/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
@@ -90,8 +92,8 @@ fi
 
 if [[ -f "kernel/arch/arm/boot/zImage" ]]; then
 	echo "[CONFIGURE] Copying created kernel to Kali Installer kernels directory..."
-	mkdir "kali-nethunter/nethunter-installer/kernels/$KERN_ANDROIDVER/$KALI_DEVNAME"
-	cp -f "kernel/arch/arm/boot/zImage" "kali-nethunter/nethunter-installer/kernels/$KERN_ANDROIDVER/$KALI_DEVNAME/zImage"
+	mkdir "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME"
+	cp -f "kernel/arch/arm/boot/zImage" "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME/zImage"
 fi
 
 echo "[BUILD] Building Kali Nethunter package..."
