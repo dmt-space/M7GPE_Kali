@@ -5,12 +5,11 @@ DEV_DESC="HTC One M7 GPE"
 DEV_ARCH="armhf"
 DEV_BLOCK="/dev/block/platform/msm_sdcc.1/by-name/boot"
 KERN_CONFIG="m7gpekali_defconfig"
-KERN_BUILDVER="1.2"
+KERN_BUILDVER="1.4"
 KERN_STRING="Kali M7 GPE"
 KERN_AUTHOR="Lavanoid"
 KERN_ANDROIDVER="lollipop"
 KERN_ANDROIDVNO="5.1.1 Lollipop"
-INST_AROMA="True"
 KALI_DEVNAME="onem7gpe"
 BUILD_CORES="2"
 NH_DEVDIR="kali-nethunter/nethunter-installer/devices"
@@ -80,7 +79,7 @@ sleep 2
 if [[ $(cat $NH_DEVDIR/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
     echo "[CONFIGURE] Adding $KALI_DEVNAME to devices.cfg..."
     echo "">> $NH_DEVDIR/devices.cfg
-    echo "#"$DEV_DESC>> $NH_DEVDIR/devices.cfg
+    echo "# "$DEV_DESC>> $NH_DEVDIR/devices.cfg
     echo "["$KALI_DEVNAME"]">> $NH_DEVDIR/devices.cfg
     echo "author = \"$KERN_AUTHOR\"">> $NH_DEVDIR/devices.cfg
     echo "version = \"$KERN_BUILDVER\"">> $NH_DEVDIR/devices.cfg
@@ -88,7 +87,6 @@ if [[ $(cat $NH_DEVDIR/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
     echo "arch = $DEV_ARCH">> $NH_DEVDIR/devices.cfg
     echo "devicenames = $DEV_BOARD">> $NH_DEVDIR/devices.cfg
     echo "block = $DEV_BLOCK">> $NH_DEVDIR/devices.cfg
-    echo "aroma = $INST_AROMA">> $NH_DEVDIR/devices.cfg
 fi
 
 if [[ -f "kernel/arch/arm/boot/zImage" ]]; then
