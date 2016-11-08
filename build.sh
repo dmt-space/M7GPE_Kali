@@ -31,7 +31,7 @@ echo "Original hostname: $ORIGINALHOSTNAME"
 export HOSTNAME=$HOST
 sudo hostname "$HOST"
 echo "Current hostname: "`hostname`
-
+sleep 2
 
 echo "[CONFIGURE] Installing dependencies..."
 sudo apt-get update
@@ -76,29 +76,42 @@ fi
 echo "CD: "$(pwd)
 echo "Creating directory $NH_DEVDIR"
 mkdir -p $NH_DEVDIR
-
+sleep 2
 if [[ $(cat $NH_DEVDIR/devices.cfg | grep "$KALI_DEVNAME") == "" ]]; then
-	echo "[CONFIGURE] Adding $KALI_DEVNAME to devices.cfg..."
-	echo "">> $NH_DEVDIR/devices.cfg
-	echo "#"$DEV_DESC>> $NH_DEVDIR/devices.cfg
-	echo "["$KALI_DEVNAME"]">> $NH_DEVDIR/devices.cfg
-	echo "author = \"$KERN_AUTHOR\"">> $NH_DEVDIR/devices.cfg
-	echo "version = \"$KERN_BUILDVER\"">> $NH_DEVDIR/devices.cfg
-	echo "kernelstring = \"$KERN_STRING\"">> $NH_DEVDIR/devices.cfg
-	echo "arch = $DEV_ARCH">> $NH_DEVDIR/devices.cfg
-	echo "devicenames = $DEV_BOARD">> $NH_DEVDIR/devices.cfg
-	echo "block = $DEV_BLOCK">> $NH_DEVDIR/devices.cfg
-	echo "aroma = $INST_AROMA">> $NH_DEVDIR/devices.cfg
-
+    echo "[CONFIGURE] Adding $KALI_DEVNAME to devices.cfg..."
+    echo "">> $NH_DEVDIR/devices.cfg
+    echo "#"$DEV_DESC>> $NH_DEVDIR/devices.cfg
+    echo "["$KALI_DEVNAME"]">> $NH_DEVDIR/devices.cfg
+    echo "author = \"$KERN_AUTHOR\"">> $NH_DEVDIR/devices.cfg
+    echo "version = \"$KERN_BUILDVER\"">> $NH_DEVDIR/devices.cfg
+    echo "kernelstring = \"$KERN_STRING\"">> $NH_DEVDIR/devices.cfg
+    echo "arch = $DEV_ARCH">> $NH_DEVDIR/devices.cfg
+    echo "devicenames = $DEV_BOARD">> $NH_DEVDIR/devices.cfg
+    echo "block = $DEV_BLOCK">> $NH_DEVDIR/devices.cfg
+    echo "aroma = $INST_AROMA">> $NH_DEVDIR/devices.cfg
 fi
 
 if [[ -f "kernel/arch/arm/boot/zImage" ]]; then
-	echo "[CONFIGURE] Copying created kernel to Kali Installer kernels directory..."
-	mkdir -p "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME"
-	cp -f "kernel/arch/arm/boot/zImage" "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME/zImage"
+    echo "[CONFIGURE] Copying created kernel to Kali Installer kernels directory..."
+    mkdir -p "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME"
+    cp -f "kernel/arch/arm/boot/zImage" "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME/zImage"
 fi
 
+echo "Applying HID SELinux fix..."
+echo -e '#!/system/bin/sh\n\nsetenforce 0\nchmod 666 /dev/hidg0 /dev/hidg1\nchown nobody:nogroup /dev/hidg0 /dev/hidg1' > "kali-nethunter/nethunter-installer/update/system/etc/init.d/90hidfix"
+sleep 1
+
 echo "[BUILD] Building Kali Nethunter package..."
+sleep 2
+
+if [[ ! -f "kali-nethunter/nethunter-installer/common/tools/freespace.sh.backup" ]]; then
+    echo "[BUILD] Backing up freespace.sh..."
+    mv "kali-nethunter/nethunter-installer/common/tools/freespace.sh" "kali-nethunter/nethunter-installer/common/tools/freespace.sh.backup"
+    echo "[BUILD] Replacing freespace.sh..."
+    echo -e '#!/bin/bash\nexit 0' > "kali-nethunter/nethunter-installer/common/tools/freespace.sh"
+    sleep 2
+fi
+
 cd "kali-nethunter/nethunter-installer/"
 python build.py -d $KALI_DEVNAME --$KERN_ANDROIDVER
 
