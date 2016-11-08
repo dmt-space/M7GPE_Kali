@@ -1,5 +1,10 @@
 #!/bin/bash
 git add --all
-git commit -m "Update"
+
+if [[ $1 != "" ]]; then
+    git commit -m "$1"
+else
+    git commit -m "Update"
+fi
 git push -u origin master
 echo Done.
