@@ -95,10 +95,6 @@ if [[ -f "kernel/arch/arm/boot/zImage" ]]; then
     cp -f "kernel/arch/arm/boot/zImage" "$NH_DEVDIR/$KERN_ANDROIDVER/$KALI_DEVNAME/zImage"
 fi
 
-echo "Applying HID SELinux fix..."
-echo -e '#!/system/bin/sh\n\nsetenforce 0\nchmod 666 /dev/hidg0 /dev/hidg1\nchown nobody:nogroup /dev/hidg0 /dev/hidg1' > "kali-nethunter/nethunter-installer/update/system/etc/init.d/90hidfix"
-sleep 1
-
 echo "[BUILD] Building Kali Nethunter package..."
 sleep 2
 
