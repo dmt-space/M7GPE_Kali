@@ -1,10 +1,18 @@
 # Kali Nethunter for the HTC One M7 GPE.
 ![Kali NetHunter](https://raw.githubusercontent.com/offensive-security/kali-nethunter/master/images/nethunter-git-logo.png)
-Stock 5.1 kernel for the HTC One GPE, with magic.
+HTC One M7, with magic.
 
 It's a completely stock kernel but it has already had the 802.11 patch applied and has had its configuration changed so that it loads drivers for the Atheros and Realtek WiFi chipsets. It also has RTL SDR, external Bluetooth and Ethernet drivers - basically the things you'd expect.
 
 A working keyboard gadget patch has also been applied, thanks to @binkybear and @tjado
+
+#Kernel sources.
+
+Source code for the modified kernel(s) can be found [here]: https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/master
+
+Currently the only supported version is 5.1 Lollipop Google Play Edition, though there may be support for other ROMs in the future.
+
+* 5.1 Lollipop GPE branch: [link]: https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/android-5.1
 
 #Compiling.
 
