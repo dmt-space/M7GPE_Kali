@@ -13,7 +13,7 @@ KERN_ANDROIDVNO="5.1.1 Lollipop"
 KALI_DEVNAME="onem7gpe"
 BUILD_CORES="2"
 NH_DEVDIR="kali-nethunter/nethunter-installer/devices"
-KERNEL_GIT="https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/master -b android-5.1"
+KERNEL_GIT="https://github.com/lavanoid/android_kernel_htc_m7gpe.git -b android-5.1"
 
 if NPROC=$(nproc); then
     echo "[INFORMATION] Total cores: $NPROC"
