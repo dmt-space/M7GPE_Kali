@@ -48,7 +48,7 @@ export PATH=$PATH:`pwd`/toolchain/bin
 
 if [[ ! -d "./kernel" ]]; then
     echo "[CONFIGURE] Downloading kernel source code..."
-    git clone "$KERNEL_GIT" ./kernel
+    git clone $KERNEL_GIT ./kernel
 fi
 
 echo "[CONFIGURE] Downloading Kali Nethunter..."
