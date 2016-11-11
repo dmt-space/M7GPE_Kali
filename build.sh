@@ -13,6 +13,7 @@ KERN_ANDROIDVNO="5.1.1 Lollipop"
 KALI_DEVNAME="onem7gpe"
 BUILD_CORES="2"
 NH_DEVDIR="kali-nethunter/nethunter-installer/devices"
+KERNEL_GIT="https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/master -b android-5.1"
 
 if NPROC=$(nproc); then
     echo "[INFORMATION] Total cores: $NPROC"
@@ -45,7 +46,12 @@ export SUBARCH=arm
 export CROSS_COMPILE=`pwd`/toolchain/bin/arm-eabi-
 export PATH=$PATH:`pwd`/toolchain/bin
 
-echo "[CONFIGURE] Downloading Kali Nethunter"
+if [[ ! -d "./kernel" ]]; then
+    echo "[CONFIGURE] Downloading kernel source code..."
+    git clone "$KERNEL_GIT" ./kernel
+fi
+
+echo "[CONFIGURE] Downloading Kali Nethunter..."
 git clone https://github.com/offensive-security/kali-nethunter
 cd kali-nethunter
 git pull origin master
