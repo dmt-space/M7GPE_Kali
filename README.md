@@ -8,11 +8,11 @@ A working keyboard gadget patch has also been applied, thanks to @binkybear and 
 
 #Kernel sources.
 
-Source code for the modified kernel(s) can be found [here]: https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/master
+Source code for the modified kernel(s) can be found [here]:(https://github.com/lavanoid/android_kernel_htc_m7gpe)
 
 Currently the only supported version is 5.1 Lollipop Google Play Edition, though there may be support for other ROMs in the future.
 
-* 5.1 Lollipop GPE branch: [link]: https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/android-5.1
+* 5.1 Lollipop GPE branch: [link](https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/android-5.1)
 
 #Compiling.
 
