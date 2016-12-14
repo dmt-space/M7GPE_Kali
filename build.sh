@@ -35,7 +35,7 @@ sleep 2
 
 echo "[CONFIGURE] Installing dependencies..."
 sudo apt-get update
-sudo apt-get install build-essential git wget curl -y
+sudo apt-get install build-essential git wget curl libncurses-dev -y
 
 echo "[CONFIGURE] Downloading arm toolchain..."
 git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 toolchain
