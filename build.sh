@@ -15,6 +15,57 @@ BUILD_CORES="2"
 NH_DEVDIR="kali-nethunter/nethunter-installer/devices"
 KERNEL_GIT="https://github.com/lavanoid/android_kernel_htc_m7gpe.git -b android-5.1"
 
+if [ -f /etc/os-release ]; then
+    # freedesktop.org and systemd
+    . /etc/os-release
+    OS=$NAME
+    VER=$VERSION_ID
+elif type lsb_release >/dev/null 2>&1; then
+    # linuxbase.org
+    OS=$(lsb_release -si)
+    VER=$(lsb_release -sr)
+elif [ -f /etc/lsb-release ]; then
+    # For some versions of Debian/Ubuntu without lsb_release command
+    . /etc/lsb-release
+    OS=$DISTRIB_ID
+    VER=$DISTRIB_RELEASE
+elif [ -f /etc/debian_version ]; then
+    # Older Debian/Ubuntu/etc.
+    OS=Debian
+    VER=$(cat /etc/debian_version)
+elif [ -f /etc/SuSe-release ]; then
+    # Older SuSE/etc.
+    OS="SUSE"
+elif [ -f /etc/redhat-release ]; then
+    # Older Red Hat, CentOS, etc.
+    OS="RedHat"
+else
+    # Fall back to uname, e.g. "Linux <version>", also works for BSD, etc.
+    OS=$(uname -s)
+    VER=$(uname -r)
+fi
+
+echo $OS
+
+if [[ ${OS} != *"Debian"* ]] || [[ ${OS} != *"Ubuntu"* ]]; then
+    if [[ ${OS} = *"Manjaro"* ]] || [[ ${OS} != *"Arch"* ]]; then
+        if ! (pacman -Qi aosp-devel); then
+            echo "[CONFIGURE] Installing dependencies..."
+            yaourt -Syy
+            yaourt -S aosp-devel python-virtualenv
+        fi
+        echo "[CONFIGURE] Enabling Python virtual environment..."
+        virtualenv -p $(which python2) --system-site-packages $(pwd)
+        source $(pwd)/bin/activate
+    else
+        echo "Not a officially supported distro. Skipping dependencies install..."
+    fi
+else
+    echo "[CONFIGURE] Installing dependencies..."
+    sudo apt-get update
+    sudo apt-get install build-essential git wget curl libncurses-dev python-requests -y
+fi
+
 if NPROC=$(nproc); then
     echo "[INFORMATION] Total cores: $NPROC"
     echo "[CONFIGURE] Using the maximum No. of processing cores available...."
@@ -32,10 +83,6 @@ export HOSTNAME=$HOST
 sudo hostname "$HOST"
 echo "Current hostname: "`hostname`
 sleep 2
-
-echo "[CONFIGURE] Installing dependencies..."
-sudo apt-get update
-sudo apt-get install build-essential git wget curl libncurses-dev python-requests -y
 
 echo "[CONFIGURE] Downloading arm toolchain..."
 git clone https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/arm/arm-eabi-4.7 toolchain
