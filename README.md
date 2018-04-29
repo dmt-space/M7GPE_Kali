@@ -16,7 +16,7 @@ Currently the only supported version is 5.1 Lollipop Google Play Edition, though
 
 # Compiling.
 
-This cannot be compiled on Windows. I recommend using either Ubuntu 15 64bit or Arch/Manjaro 64bit. The script will automatically download the required dependencies, assuming that you are using a Debian-Based or Arch-based Linux Disto (such as Ubuntu, Manjaro etc). The script can be adapted to work with other devices.
+This cannot be compiled on Windows. I recommend using either Ubuntu 15 64bit or Arch/Manjaro 64bit. The script will automatically download the required dependencies, assuming that you are using a Debian-based or Arch-based Linux Disto (such as Ubuntu, Manjaro etc). The script can be adapted to work with other devices.
 
     bash ./build.sh
 
