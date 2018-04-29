@@ -58,7 +58,7 @@ if [[ ${OS} != *"Debian"* ]] || [[ ${OS} != *"Ubuntu"* ]]; then
         virtualenv -p $(which python2) --system-site-packages $(pwd)
         source $(pwd)/bin/activate
     else
-        echo "Not a officially supported distro. Skipping dependencies install..."
+        echo "Not an officially supported distro. Skipping dependencies install..."
     fi
 else
     echo "[CONFIGURE] Installing dependencies..."
@@ -120,8 +120,8 @@ if [[ $1 != "--nokern" ]]; then
     echo "[BUILD] Building kernel for $DEV_DESC $KERN_ANDROIDVNO"
     make clean
     make $KERN_CONFIG
-    make -j$BUILD_CORES
-
+    time make -j$BUILD_CORES
+    sleep 2
     cd ..
 fi
 
