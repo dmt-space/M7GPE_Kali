@@ -6,7 +6,7 @@ It's a completely stock kernel but it has already had the 802.11 patch applied a
 
 A working keyboard gadget patch has also been applied, thanks to @binkybear and @tjado
 
-#Kernel sources.
+# Kernel sources.
 
 Source code for the modified kernel(s) can be found [here](https://github.com/lavanoid/android_kernel_htc_m7gpe)
 
@@ -14,9 +14,9 @@ Currently the only supported version is 5.1 Lollipop Google Play Edition, though
 
 * 5.1 Lollipop GPE branch: [link](https://github.com/lavanoid/android_kernel_htc_m7gpe/tree/android-5.1)
 
-#Compiling.
+# Compiling.
 
-This cannot be compiled on Windows. I recommend using Ubuntu 15 64BIT. The script will automatically download the required dependencies, assuming that you are using a Debian-Based Linux Disto (such as Ubuntu). The script can be adapted to work with other devices.
+This cannot be compiled on Windows. I recommend using either Ubuntu 15 64bit or Arch/Manjaro 64bit. The script will automatically download the required dependencies, assuming that you are using a Debian-Based or Arch-based Linux Disto (such as Ubuntu, Manjaro etc). The script can be adapted to work with other devices.
 
     bash ./build.sh
 
