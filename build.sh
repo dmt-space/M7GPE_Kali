@@ -156,12 +156,12 @@ if [[ ! -f "kali-nethunter/nethunter-installer/common/tools/freespace.sh.backup"
     mv "kali-nethunter/nethunter-installer/common/tools/freespace.sh" "kali-nethunter/nethunter-installer/common/tools/freespace.sh.backup"
     echo "[BUILD] Replacing freespace.sh..."
     echo -e '#!/bin/bash\nexit 0' > "kali-nethunter/nethunter-installer/common/tools/freespace.sh"
-    sleep 2
 fi
-
+echo "[INFO] Changing directory to 'kali-nethunter/nethunter-installer'..."
 cd "kali-nethunter/nethunter-installer/"
+echo "[BUILD] Building the Kali NH package..."
 python build.py -d $KALI_DEVNAME --$KERN_ANDROIDVER
-
+echo "[INFO] Python script called. Cleaning up..."
 echo "Original hostname: $ORIGINALHOSTNAME"
 
 echo "[CONFIGURE] Restoring system host name to '"$ORIGINALHOSTNAME"'..."
