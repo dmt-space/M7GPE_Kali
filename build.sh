@@ -52,10 +52,14 @@ if [[ ${OS} != *"Debian"* ]] || [[ ${OS} != *"Ubuntu"* ]]; then
         if ! (pacman -Qi aosp-devel); then
             echo "[CONFIGURE] Installing dependencies..."
             yaourt -Syy
-            yaourt -S aosp-devel python-virtualenv
+            yaourt -S aosp-devel python-virtualenv python2-virtualenv
         fi
         echo "[CONFIGURE] Enabling Python virtual environment..."
-        virtualenv -p $(which python2) --system-site-packages $(pwd)
+        if [[ ${OS} = *"Manjaro"* ]] || [[ ${OS} != *"Arch"* ]]; then
+            virtualenv2 -p $(which python2) --system-site-packages $(pwd)
+        else
+            virtualenv -p $(which python2) --system-site-packages $(pwd)
+        fi
         source $(pwd)/bin/activate
     else
         echo "Not an officially supported distro. Skipping dependencies install..."
