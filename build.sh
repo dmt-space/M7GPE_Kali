@@ -55,11 +55,8 @@ if [[ ${OS} != *"Debian"* ]] || [[ ${OS} != *"Ubuntu"* ]]; then
             yaourt -S aosp-devel python-virtualenv python2-virtualenv
         fi
         echo "[CONFIGURE] Enabling Python virtual environment..."
-        if [[ ${OS} = *"Manjaro"* ]] || [[ ${OS} != *"Arch"* ]]; then
-            virtualenv2 -p $(which python2) --system-site-packages $(pwd)
-        else
-            virtualenv -p $(which python2) --system-site-packages $(pwd)
-        fi
+        virtualenv2 -p $(which python2) --system-site-packages $(pwd)
+        #virtualenv -p $(which python2) --system-site-packages $(pwd)
         source $(pwd)/bin/activate
     else
         echo "Not an officially supported distro. Skipping dependencies install..."
