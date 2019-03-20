@@ -53,7 +53,11 @@ if [[ ${OS} != *"Debian"* ]] || [[ ${OS} != *"Ubuntu"* ]]; then
             echo "[CONFIGURE] Installing dependencies..."
             sudo pacman -S --needed yay
             yay -Syy
-            yay -S aosp-devel python-virtualenv python2-virtualenv
+            yay -S aosp-devel python-virtualenv python2-virtualenv python-requests python2-requests
+        fi
+        if ! (pacman -Qi python2-requests); then
+            # AOSP-Devel may be installed in advance, so it's best to check if python requests are also installed.
+            sudo pacman -S python-requests python2-requests
         fi
         echo "[CONFIGURE] Enabling Python virtual environment..."
         virtualenv2 -p $(which python2) --system-site-packages $(pwd)
