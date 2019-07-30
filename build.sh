@@ -47,34 +47,34 @@ fi
 
 echo $OS
 
-if [[ ${OS} != *"Debian"* ]] || [[ ${OS} != *"Ubuntu"* ]]; then
-    if [[ ${OS} = *"Manjaro"* ]] || [[ ${OS} != *"Arch"* ]]; then
-        if ! (pacman -Qi aosp-devel); then
-            echo "[CONFIGURE] Installing dependencies..."
-            sudo pacman -S --needed yay
-            yay -Syy
-            yay -S aosp-devel python-virtualenv python2-virtualenv python-requests python2-requests
-        fi
-        if ! (pacman -Qi python2-requests); then
-            # AOSP-Devel may be installed in advance, so it's best to check if python requests are also installed.
-            sudo pacman -S python-requests python2-requests
-        fi
-        echo "[CONFIGURE] Enabling Python virtual environment..."
-        virtualenv2 -p $(which python2) --system-site-packages $(pwd)
-        #virtualenv -p $(which python2) --system-site-packages $(pwd)
-        source $(pwd)/bin/activate
-    else
-        echo "Not an officially supported distro. Skipping dependencies install..."
+
+
+if [[ ${OS} = *"Manjaro"* ]] || [[ ${OS} = *"Arch"* ]]; then
+    if ! (pacman -Qi aosp-devel); then
+        echo "[CONFIGURE] Installing dependencies..."
+        sudo pacman -S --needed yay
+        yay -Syy
+        yay -S aosp-devel
     fi
-else
+    if ! (pacman -Qi python2-requests); then
+        sudo pacman -S --needed yay
+        yay -Syy
+        yay -S python-virtualenv python2-virtualenv python-requests python2-requests
+    fi
+    echo "[CONFIGURE] Enabling Python virtual environment..."
+    virtualenv2 -p $(which python2) --system-site-packages $(pwd)
+    #virtualenv -p $(which python2) --system-site-packages $(pwd)
+    source $(pwd)/bin/activate
+fi
+if [[ ${OS} = *"Debian"* ]] || [[ ${OS} = *"Ubuntu"* ]]; then
     echo "[CONFIGURE] Installing dependencies..."
     sudo apt-get update
-    sudo apt-get install build-essential git wget curl libncurses-dev python-requests -y
+    sudo apt-get install build-essential git wget curl libncurses-dev python-requests python-venv -y
 fi
 
 if NPROC=$(nproc); then
-    echo "[INFORMATION] Total cores: $NPROC"
-    echo "[CONFIGURE] Using the maximum No. of processing cores available...."
+    echo "[INFORMATION] Total CPU threads: $NPROC"
+    echo "[CONFIGURE] Using the maximum No. of processing threads available...."
     BUILD_CORES="$NPROC"
 fi
 
@@ -83,7 +83,7 @@ HOST="kali"
 
 echo "[CONFIGURE] Changing system host name to '"$HOST"'..."
 # Backup the original hostname, then change it to the value of "HOST".
-ORIGINALHOSTNAME=`hostname`
+ORIGINALHOSTNAME=$(hostname)
 echo "Original hostname: $ORIGINALHOSTNAME"
 export HOSTNAME=$HOST
 sudo hostname "$HOST"
@@ -105,7 +105,7 @@ if [[ ! -d "./kernel" ]]; then
 fi
 
 echo "[CONFIGURE] Downloading Kali Nethunter..."
-git clone https://github.com/offensive-security/kali-nethunter
+git clone https://gitlab.com/kalilinux/nethunter/build-scripts/kali-nethunter-project kali-nethunter
 cd kali-nethunter
 git pull origin master
 cd ..
