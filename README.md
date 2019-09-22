@@ -25,3 +25,7 @@ By default the script uses 2 cores for compiling the source code, but it does ch
 If the script is ran successfully, you should have an installer zip file that will allow you to flash Kali Nethunter onto your device through the recovery menu (TWRP is recommended). To find out where the installer is located, use your eyes and the terminal output should tell you where it is.
 
  I DO NOT provide any means of technical support and neither do I take responsibility for whatever the outcome that may occur when you fiddle around with this and your device.
+
+# My other projects
+- Kali Nethunter for the One M9: https://github.com/lavanoid/M9Sense_Kali
+- Kali Nethunter for the One M8: https://github.com/lavanoid/M8GPE_Kali
